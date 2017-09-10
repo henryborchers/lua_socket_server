@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <Import Project="C:\Program Files (x86)\MSBuildExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>
+  <Target Name="LuaSource" Condition="!Exists('build/lua.tar.gz')">
+    <Message Text="Getting Lua runtime source code"/>
+    <MakeDir Directories="build" Condition="!Exists('build')"/>
+    <MSBuild.ExtensionPack.Web.WebClient TaskAction="DownloadFile" Url="http://www.lua.org/ftp/lua-5.3.4.tar.gz" FileName="build/lua.tar.gz"/>
+
+
+  </Target> 
+    <Target Name="Lua" Outputs="lua.tar.gz" DependsOnTargets="LuaSource">
+      <Message Text="Creating Lua runtime"/>
+    </Target>
+  <Target Name="Build" DependsOnTargets="Lua" >
+    <Message Text="Building"/>
+  </Target>
+  <Target Name="Clean">
+    <Message Text="Cleaning"/>
+    <RemoveDir Directories="build" Condition="Exists('build')"/>
+  </Target>
+</Project>
