@@ -7,7 +7,7 @@ lua_modules:
 	luarocks install --tree lua_modules luasocket
 	luarocks install --tree lua_modules busted
 test: lua_modules
-	lua_modules/bin/busted test_commands.lua --helper=set_paths
+	lua_modules/bin/busted tests/test_commands.lua --helper=set_paths
 
 clean:
 	@echo "Cleaning"
