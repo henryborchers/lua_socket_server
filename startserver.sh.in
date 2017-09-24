@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+@LUA_INTERP@ -l share/myserver/set_paths @main.lua@
