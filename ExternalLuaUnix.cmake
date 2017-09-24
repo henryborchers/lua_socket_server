@@ -17,6 +17,7 @@ ExternalProject_Add(LuaProject
         BUILD_IN_SOURCE 1
         )
 ExternalProject_Get_Property(LuaProject SOURCE_DIR)
+
 add_library(Lua::lib STATIC IMPORTED)
 set_target_properties(Lua::lib PROPERTIES
         IMPORTED_LOCATION ${SOURCE_DIR}/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua${CMAKE_STATIC_LIBRARY_SUFFIX}
@@ -24,3 +25,8 @@ set_target_properties(Lua::lib PROPERTIES
         FOLDER ${SOURCE_DIR}/install
         )
 add_dependencies(Lua::lib LuaProject)
+
+add_executable(Lua::lua IMPORTED)
+set_target_properties(Lua::lua PROPERTIES
+        IMPORTED_LOCATION ${SOURCE_DIR}/install/bin/lua${CMAKE_EXECUTABLE_SUFFIX}
+        )
