@@ -5,7 +5,7 @@ include(get_lua_deps.cmake)
 add_executable(hello hello.cpp)
 install(TARGETS hello DESTINATION bin)
 target_link_libraries(hello PRIVATE Lua::lib)
-add_dependencies(hello lua_deps)
+add_dependencies(hello lualuasockets)
 add_custom_target(runTests
         COMMENT "Running lua tests"
         COMMAND busted::busted
