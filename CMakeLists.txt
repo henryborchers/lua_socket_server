@@ -30,10 +30,15 @@ add_custom_target(runTests
         ARGS tests/test_commands.lua --helper=set_paths
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         DEPENDS busted::busted)
-add_test(luaTests
+add_test(NAME luaTests_commands
         COMMAND bin/busted tests/test_commands.lua --helper=share/myserver/set_paths
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
         )
+add_test(NAME luaTests_server
+        COMMAND bin/busted tests/test_server.lua --helper=share/myserver/set_paths
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        )
+
 set(main.lua share/myserver/main.lua)
 set(LUA_SOURCE ${CMAKE_SOURCE_DIR}/source)
 get_target_property(LUA_INTERP Lua::lua LOCATION)
