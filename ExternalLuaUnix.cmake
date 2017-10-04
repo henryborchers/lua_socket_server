@@ -10,23 +10,27 @@ else ()
     MESSAGE(FATAL "Unable to build Lua with current configuration")
 endif ()
 ExternalProject_Add(LuaProject
-        URL https://www.lua.org/ftp/lua-5.3.4.tar.gz
+        URL https://github.com/LuaDist/lua/archive/5.3.2.tar.gz
+#        URL https://www.lua.org/ftp/lua-5.3.4.tar.gz
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND make ${lua_build_arch}
-        INSTALL_COMMAND make local
-        BUILD_IN_SOURCE 1
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR} -DBUILD_SHARED_LIB=NO
+#        BUILD_COMMAND ""
+#        BUILD_COMMAND make ${lua_build_arch}
+#        INSTALL_COMMAND make local
+#        INSTALL_COMMAND ""
+#        BUILD_IN_SOURCE 1
         )
 ExternalProject_Get_Property(LuaProject SOURCE_DIR)
 
 add_library(Lua::lib STATIC IMPORTED)
 set_target_properties(Lua::lib PROPERTIES
-        IMPORTED_LOCATION ${SOURCE_DIR}/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua${CMAKE_STATIC_LIBRARY_SUFFIX}
-        INCLUDE_DIRECTORIES ${SOURCE_DIR}/install/include
-        FOLDER ${SOURCE_DIR}/install
+        IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua${CMAKE_STATIC_LIBRARY_SUFFIX}
+        INCLUDE_DIRECTORIES ${CMAKE_BINARY_DIR}/install/include
+        FOLDER ${CMAKE_BINARY_DIR}
         )
 add_dependencies(Lua::lib LuaProject)
 
 add_executable(Lua::lua IMPORTED)
 set_target_properties(Lua::lua PROPERTIES
-        IMPORTED_LOCATION ${SOURCE_DIR}/install/bin/lua${CMAKE_EXECUTABLE_SUFFIX}
+        IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/lua${CMAKE_EXECUTABLE_SUFFIX}
         )
