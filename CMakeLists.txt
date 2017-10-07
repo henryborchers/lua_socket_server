@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
+option(Lua_UseExternalLuaRocks  "download and build an copy of Lua Rocks"    OFF)
+
 include(ExternalLuaUnix.cmake)
 include(ExternalLuaRocksUnix.cmake)
 include(get_lua_deps.cmake)
