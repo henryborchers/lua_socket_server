@@ -1,5 +1,5 @@
 include(ExternalProject)
-add_executable(luarocks::luarocks IMPORTED)
+add_executable(lua::luarocks IMPORTED)
 get_target_property(lua_root Lua::lib FOLDER)
 if (Lua_UseExternalLuaRocks)
     ExternalProject_Add(LuaRocksProject
@@ -12,15 +12,14 @@ if (Lua_UseExternalLuaRocks)
             )
     ExternalProject_Get_Property(LuaRocksProject INSTALL_DIR)
 
-    set_target_properties(luarocks::luarocks PROPERTIES
+    set_target_properties(lua::luarocks PROPERTIES
             IMPORTED_LOCATION ${INSTALL_DIR}/bin/luarocks${CMAKE_EXECUTABLE_SUFFIX}
             )
-
-    add_dependencies(luarocks::luarocks LuaRocksProject)
+    add_dependencies(lua::luarocks LuaRocksProject)
 else ()
     find_program(luarocks luarocks REQUIRED)
-    set_target_properties(luarocks::luarocks PROPERTIES
+    set_target_properties(lua::luarocks PROPERTIES
             IMPORTED_LOCATION ${luarocks}
             )
-    message(WARNING "luarocks = ${luarocks}")
 endif ()
+
