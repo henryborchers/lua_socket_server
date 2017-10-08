@@ -16,16 +16,16 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/source/main.lua ${CMAKE_BINARY_DIR}/share/myserver/main.lua
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/source/commands.lua ${CMAKE_BINARY_DIR}/share/myserver/commands.lua
 )
-add_custom_target(runTests
+add_custom_target(runTests ALL
         COMMENT "Running lua tests"
         COMMAND busted::busted
         ARGS tests/test_commands.lua --helper=set_paths
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        DEPENDS busted::busted)
-
+        DEPENDS busted::busted luaBusted)
+add_dependencies(runTests luaBusted)
 set(main.lua share/myserver/main.lua)
 set(LUA_SOURCE ${CMAKE_SOURCE_DIR}/source)
-get_target_property(LUA_INTERP Lua::lua LOCATION)
+#get_target_property(LUA_INTERP Lua::lua LOCATION)
 configure_file(startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
         DESTINATION bin
