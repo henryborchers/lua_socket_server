@@ -30,13 +30,13 @@ configure_file(startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
         DESTINATION bin
         PERMISSIONS
-        OWNER_EXECUTE
-        OWNER_READ
-        OWNER_WRITE
-        WORLD_READ
-        WORLD_EXECUTE
-        GROUP_READ
-        GROUP_EXECUTE
+            OWNER_EXECUTE
+            OWNER_READ
+            OWNER_WRITE
+            WORLD_READ
+            WORLD_EXECUTE
+            GROUP_READ
+            GROUP_EXECUTE
         )
 
 
