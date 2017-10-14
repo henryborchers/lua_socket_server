@@ -7,12 +7,16 @@ else ()
 endif ()
 #message(WARNING "default_use_external_lua_rocks = ${default_use_external_lua_rocks}")
 option(Lua_UseExternalLuaRocks "download and build an copy of Lua Rocks" ${default_use_external_lua_rocks})
+option(LuaServer_include-tests "Include tests" ON)
+
+if (LuaServer_include-tests)
+    enable_testing()
+endif ()
 
 include(ExternalLuaUnix.cmake)
 include(ExternalLuaRocksUnix.cmake)
 include(get_lua_deps.cmake)
 include(lua_targets.cmake)
-enable_testing()
 
 add_executable(hello hello.cpp)
 install(TARGETS hello DESTINATION bin)
