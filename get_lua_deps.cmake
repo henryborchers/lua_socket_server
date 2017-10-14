@@ -1,7 +1,7 @@
 add_custom_target(lualuasockets
         DEPENDS lua::luarocks
         DEPENDS ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
-        COMMENT "Adding Luasocks"
+        COMMENT "Adding Luasocket"
         )
 
 
@@ -15,17 +15,26 @@ add_custom_command(
 add_dependencies(lualuasockets lua::luarocks )
 add_custom_target(luaBusted
         DEPENDS lua::luarocks
+        DEPENDS ${CMAKE_BINARY_DIR}/bin/busted
         COMMENT "Adding Luasocks"
         )
 
+
 add_custom_command(
-#        POST_BUILD
-        TARGET luaBusted
+        OUTPUT ${CMAKE_BINARY_DIR}/bin/busted
         COMMAND lua::luarocks
-        ARGS install --tree ${CMAKE_BINARY_DIR} busted
-        COMMENT "Adding busted"
-        BYPRODUCTS cmake-build-debug/lua_modules/lib/luarocks/rocks/busted
+        ARGS install --tree ${CMAKE_BINARY_DIR}/ busted
+        COMMENT "Adding Busted to ${CMAKE_BINARY_DIR}/"
 )
+
+#add_custom_command(
+##        POST_BUILD
+#        TARGET luaBusted
+#        COMMAND lua::luarocks
+#        ARGS install --tree ${CMAKE_BINARY_DIR} busted
+#        COMMENT "Adding busted"
+#        BYPRODUCTS cmake-build-debug/lua_modules/lib/luarocks/rocks/busted
+#)
 add_executable(busted::busted IMPORTED)
 add_dependencies(luaBusted lua::luarocks)
 set_target_properties(busted::busted PROPERTIES
