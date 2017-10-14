@@ -1,22 +1,23 @@
 add_custom_target(lualuasockets
         DEPENDS lua::luarocks
+        DEPENDS ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
         COMMENT "Adding Luasocks"
         )
 
 
 add_custom_command(
-        POST_BUILD
-        TARGET lualuasockets
+        OUTPUT ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
         COMMAND lua::luarocks
         ARGS install --tree ${CMAKE_BINARY_DIR}/ luasocket
-        COMMENT "Adding luasocket"
-        BYPRODUCTS cmake-build-debug/lua_modules/lib/luarocks/rocks/luasocket
+        COMMENT "Adding luasocket to ${CMAKE_BINARY_DIR}/"
 )
+
 add_dependencies(lualuasockets lua::luarocks )
 add_custom_target(luaBusted
         DEPENDS lua::luarocks
         COMMENT "Adding Luasocks"
         )
+
 add_custom_command(
 #        POST_BUILD
         TARGET luaBusted
