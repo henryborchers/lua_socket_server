@@ -21,7 +21,7 @@ include(lua_targets.cmake)
 add_executable(hello hello.cpp)
 install(TARGETS hello DESTINATION bin)
 target_link_libraries(hello PRIVATE Lua::lib)
-add_dependencies(hello lualuasockets)
+add_dependencies(hello lua_scripts)
 
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/source/ DESTINATION share/myserver)
