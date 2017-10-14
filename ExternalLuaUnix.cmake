@@ -24,6 +24,7 @@ set_target_properties(Lua::lib PROPERTIES
         INCLUDE_DIRECTORIES ${SOURCE_DIR}/install/include
         FOLDER ${SOURCE_DIR}/install
         )
+set(LUA_VERSION_STRING 5.3)
 add_dependencies(Lua::lib LuaProject)
 
 add_executable(Lua::lua IMPORTED)
