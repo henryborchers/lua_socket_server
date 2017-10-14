@@ -15,7 +15,7 @@ if (LuaServer_include-tests)
 
     add_custom_target(lua_test_scripts
             ALL
-            COMMENT "Adding Lua test Scripts"
+            COMMENT "Adding/updating Lua test Scripts"
             DEPENDS lua_scripts busted::busted lualuasockets
             DEPENDS ${LUA_TESTS}
             )
@@ -49,18 +49,16 @@ foreach (lua_project_script ${PROJECT_LUA_SCRIPTS})
     add_custom_command(
             OUTPUT ${lua_project_script}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/source/${lua_project_script} ${CMAKE_BINARY_DIR}/share/myserver/${lua_project_script}
-            COMMENT "Adding ${lua_project_script}."
+            COMMENT "Adding/updating ${lua_project_script}."
     )
 endforeach ()
 add_custom_target(lua_scripts
-        COMMENT "Adding Lua Scripts"
-        DEPENDS busted::busted
-        DEPENDS ${PROJECT_LUA_SCRIPTS}
+        ALL
+        COMMENT "Adding/updating Lua Scripts "
+                DEPENDS ${PROJECT_LUA_SCRIPTS}
         )
 
 set(main.lua share/myserver/main.lua)
-#set(LUA_SOURCE ${CMAKE_SOURCE_DIR}/source)
-#get_target_property(LUA_INTERP Lua::lua LOCATION)
 configure_file(startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
         DESTINATION bin
