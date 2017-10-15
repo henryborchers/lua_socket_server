@@ -33,7 +33,7 @@ end
 local Help = Command:new { help_message = "get this help message" }
 
 function Help:exec()
-    local message = "Help Information:"
+    local message = "Help Information:\n"
     if #self.args == 0 then
         message = message .. "\nAvailable commands:"
         for key, value in pairs(list_commands()) do
