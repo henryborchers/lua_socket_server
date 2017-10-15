@@ -47,7 +47,13 @@ function Server:login()
     return client
 end
 
-
+local function format_return_message(text)
+    local head = "+"..string.rep("=", 79)
+    local side = "| "
+    local tail = "+"..string.rep("=", 79)
+    local message = side .. string.gsub(text, "\n", "\n" .. side)
+    return head .. "\n" .. message .. "\n" .. tail .. "\n\n"
+end
 
 
 function Client:run()
@@ -55,21 +61,26 @@ function Client:run()
 
     while 1 do
         local line, erro = connection:receive()
---    TODO: tie commands into the server using a factory
-        if commands.contains(line) then
-            print("yes")
+        if line then
+
+            local my_command = commands.get(line)
+            my_command:exec()
+            --            connection:send("\n"..my_command.response .. "\n\n")
+            if line == "quit" then
+                print("got a line")
+                break
+            end
+            if line == "shutdown" then
+                print("shutting down")
+                self.abort = true
+                break
+            end
+            if my_command.response ~= "" then connection:send(format_return_message(my_command.response)) end
+            --            if not err then connection:send(line .. "\n") end
+            self.abort = false
+        else
+            print("did nothing")
         end
-        if line == "quit" then
-            print("got a line")
-            break
-        end
-        if line == "shutdown" then
-            print("shutting down")
-            self.abort = true
-            break
-        end
-        if not err then connection:send(line .. "\n") end
-        self.abort = false
     end
 end
 
