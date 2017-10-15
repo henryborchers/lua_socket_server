@@ -14,7 +14,7 @@ if (LuaServer_include-tests)
 endif ()
 
 include(ExternalLuaUnix.cmake)
-include(ExternalLuaRocksUnix.cmake)
+include(LuaRocks.cmake)
 include(get_lua_deps.cmake)
 include(lua_targets.cmake)
 
