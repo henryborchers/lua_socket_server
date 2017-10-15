@@ -23,7 +23,7 @@ if (LuaServer_include-tests)
     add_custom_target(runTests
             COMMENT "Running lua tests"
             COMMAND busted::busted
-            ARGS tests/test_commands.lua --helper=set_paths
+            ARGS tests/test_commands.lua --helper=set_paths -v
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             DEPENDS busted::busted luaBusted lua_test_scripts)
 
