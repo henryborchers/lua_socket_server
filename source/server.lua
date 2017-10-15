@@ -47,7 +47,13 @@ function Server:login()
     return client
 end
 
-
+local function format_return_message(text)
+    local head = "+"..string.rep("=", 79)
+    local side = "| "
+    local tail = "+"..string.rep("=", 79)
+    local message = side .. string.gsub(text, "\n", "\n" .. side)
+    return head .. "\n" .. message .. "\n" .. tail .. "\n\n"
+end
 
 
 function Client:run()
@@ -59,7 +65,7 @@ function Client:run()
 
             local my_command = commands.get(line)
             my_command:exec()
---            connection:send("\n"..my_command.response .. "\n\n")
+            --            connection:send("\n"..my_command.response .. "\n\n")
             if line == "quit" then
                 print("got a line")
                 break
@@ -69,8 +75,8 @@ function Client:run()
                 self.abort = true
                 break
             end
-            if my_command.response ~= "" then connection:send("\n> "..my_command.response .. "\n\n") end
---            if not err then connection:send(line .. "\n") end
+            if my_command.response ~= "" then connection:send(format_return_message(my_command.response)) end
+            --            if not err then connection:send(line .. "\n") end
             self.abort = false
         else
             print("did nothing")
