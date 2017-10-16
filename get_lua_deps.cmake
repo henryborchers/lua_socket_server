@@ -17,6 +17,8 @@ if (Lua_UseExternalLuaRocks)
 
 
     add_dependencies(lualuasockets lua::luarocks)
+    add_library(lua::sockets SHARED IMPORTED)
+    add_dependencies(lua::sockets lualuasockets)
     add_custom_target(luaBusted
             DEPENDS lua::luarocks
             DEPENDS ${CMAKE_BINARY_DIR}/bin/busted
@@ -30,11 +32,11 @@ if (Lua_UseExternalLuaRocks)
             ARGS install --tree ${CMAKE_BINARY_DIR}/ busted
             COMMENT "Adding Busted to ${CMAKE_BINARY_DIR}/"
     )
-    add_dependencies(luaBusted lua::luarocks)
+    add_dependencies(luaBusted lua::luarocks lua::sockets)
     set_target_properties(busted::busted PROPERTIES
             IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/busted${CMAKE_EXECUTABLE_SUFFIX}
             )
-    add_dependencies(busted::busted luaBusted)
+    add_dependencies(busted::busted luaBusted )
 else ()
     find_program(busted busted)
     set_target_properties(busted::busted PROPERTIES
