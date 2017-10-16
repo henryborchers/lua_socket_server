@@ -22,12 +22,16 @@ if (LuaServer_include-tests)
 
     add_custom_target(runTests
             COMMENT "Running lua tests"
-            COMMAND busted::busted
-            ARGS tests/test_commands.lua --helper=set_paths -v
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            DEPENDS busted::busted luaBusted lua_test_scripts)
+            DEPENDS busted::busted lua_test_scripts)
 
-    add_dependencies(runTests luaBusted)
+
+    add_custom_command(TARGET runTests
+            COMMENT "Running tests inside "
+            COMMAND busted::busted tests
+            ARGS tests/*.lua --helper=share/myserver/set_paths -v
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            )
+    add_dependencies(runTests luaBusted lua::sockets)
 
 
     add_test(NAME luaTests_commands
@@ -55,21 +59,22 @@ endforeach ()
 add_custom_target(lua_scripts
         ALL
         COMMENT "Adding/updating Lua Scripts "
-                DEPENDS ${PROJECT_LUA_SCRIPTS}
+        DEPENDS ${PROJECT_LUA_SCRIPTS}
         )
+add_dependencies(lua_scripts lua::sockets)
 
 set(main.lua share/myserver/main.lua)
 configure_file(startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
         DESTINATION bin
         PERMISSIONS
-        OWNER_EXECUTE
-        OWNER_READ
-        OWNER_WRITE
-        WORLD_READ
-        WORLD_EXECUTE
-        GROUP_READ
-        GROUP_EXECUTE
+            OWNER_EXECUTE
+            OWNER_READ
+            OWNER_WRITE
+            WORLD_READ
+            WORLD_EXECUTE
+            GROUP_READ
+            GROUP_EXECUTE
         )
 
 
