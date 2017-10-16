@@ -25,5 +25,5 @@ add_dependencies(hello lua_scripts)
 
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/source/ DESTINATION share/myserver)
-configure_file(set_paths.lua.in ${CMAKE_BINARY_DIR}/share/myserver/set_paths.lua)
+#configure_file(set_paths.lua.in ${CMAKE_BINARY_DIR}/share/myserver/set_paths.lua)
 install(FILES ${CMAKE_BINARY_DIR}/share/myserver/set_paths.lua DESTINATION share/myserver)
