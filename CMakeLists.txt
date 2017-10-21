@@ -14,7 +14,7 @@ include(cmake/get_lua_deps.cmake)
 include(cmake/lua_targets.cmake)
 
 add_subdirectory(source)
-
+add_subdirectory(tests)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/source/ DESTINATION share/myserver)
 install(FILES ${CMAKE_BINARY_DIR}/share/myserver/set_paths.lua DESTINATION share/myserver)
