@@ -11,7 +11,8 @@ if (Lua_UseExternalLuaRocks)
     add_custom_command(
             OUTPUT ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
             COMMAND lua::luarocks
-            ARGS install --tree ${CMAKE_BINARY_DIR}/ luasocket
+            ARGS install --tree ${CMAKE_BINARY_DIR}/ luasocket CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
+#            ARGS install --tree ${CMAKE_BINARY_DIR}/ luasocket
             COMMENT "Adding luasocket to ${CMAKE_BINARY_DIR}/"
     )
 
@@ -29,12 +30,12 @@ if (Lua_UseExternalLuaRocks)
     add_custom_command(
             OUTPUT ${CMAKE_BINARY_DIR}/bin/busted
             COMMAND lua::luarocks
-            ARGS install --tree ${CMAKE_BINARY_DIR}/ busted
+            ARGS install --tree ${CMAKE_BINARY_DIR}/ busted CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
             COMMENT "Adding Busted to ${CMAKE_BINARY_DIR}/"
     )
     add_dependencies(luaBusted lua::luarocks lua::sockets)
     set_target_properties(busted::busted PROPERTIES
-            IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/busted${CMAKE_EXECUTABLE_SUFFIX}
+            IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/busted.bat
             )
     add_dependencies(busted::busted luaBusted )
 else ()
