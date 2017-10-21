@@ -4,4 +4,5 @@ if (PYTHONINTERP_FOUND)
             COMMAND ${PYTHON_EXECUTABLE} setup.py build -b ${CMAKE_BINARY_DIR}/client/
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             COMMENT "Building visclient")
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runclient.sh.in ${CMAKE_BINARY_DIR}/client/runclient.sh)
 endif ()
