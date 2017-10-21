@@ -1,11 +1,11 @@
 file(GLOB PROJECT_LUA_SCRIPTS
-        RELATIVE ${CMAKE_SOURCE_DIR}/source
-        ${CMAKE_SOURCE_DIR}/source/*.lua)
+        RELATIVE ${CMAKE_SOURCE_DIR}/source/server/
+        ${CMAKE_SOURCE_DIR}/source/server/*.lua)
 foreach (lua_project_script ${PROJECT_LUA_SCRIPTS})
-    message(STATUS "Located lua script: ${CMAKE_SOURCE_DIR}/source/${lua_project_script}")
+    message(STATUS "Located lua script: ${lua_project_script}")
     add_custom_command(
             OUTPUT ${lua_project_script}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/source/${lua_project_script} ${CMAKE_BINARY_DIR}/share/myserver/${lua_project_script}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/source/server/${lua_project_script} ${CMAKE_BINARY_DIR}/share/myserver/${lua_project_script}
             COMMENT "Adding/updating ${lua_project_script}."
     )
 endforeach ()
