@@ -29,7 +29,7 @@ local Client = {}
 --end
 
 function Server:new(t)
-    t = t or {}
+    local t = t or {}
     setmetatable(t, self)
     self.__index = self
     return t
@@ -75,9 +75,12 @@ function Client:run()
                 self.abort = true
                 break
             end
+--            if my_command.response ~= "" then self.send(my_command.response) end
             if my_command.response ~= "" then connection:send(format_return_message(my_command.response)) end
             --            if not err then connection:send(line .. "\n") end
             self.abort = false
+        elseif erro then
+            break
         else
             print("did nothing")
         end
@@ -89,7 +92,7 @@ function Client:logout()
 end
 
 function Client:new(t)
-    t = t or {}
+    local t = t or {}
     setmetatable(t, self)
     self.__index = self
     return t
@@ -105,6 +108,7 @@ local function run_server()
     while 1 do
         local client = my_server:login()
         print("logged in")
+        client.connection:send("Client connected\n")
         client:run()
         client:logout()
         print("client closed")
