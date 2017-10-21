@@ -13,10 +13,10 @@ if (LuaServer_include-tests)
     enable_testing()
 endif ()
 
-include(ExternalLuaUnix.cmake)
-include(LuaRocks.cmake)
-include(get_lua_deps.cmake)
-include(lua_targets.cmake)
+include(cmake/ExternalLuaUnix.cmake)
+include(cmake/LuaRocks.cmake)
+include(cmake/get_lua_deps.cmake)
+include(cmake/lua_targets.cmake)
 
 add_subdirectory(source)
 
