@@ -4,8 +4,8 @@ import sys
 
 
 def connect(server, port):
-    print("Connecting")
     tn = telnetlib.Telnet(server, port=port)
+    print("Connecting")
     try:
         tn.read_until(b"Client connected\n")
         while True:
