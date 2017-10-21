@@ -16,17 +16,17 @@ if (LuaServer_include-tests)
     add_custom_target(lua_test_scripts
             ALL
             COMMENT "Adding/updating Lua test Scripts"
-            DEPENDS lua_scripts busted::busted lualuasockets
+            DEPENDS lua_scripts lualuasockets
             DEPENDS ${LUA_TESTS}
             )
-
+    add_dependencies(lua_test_scripts busted::busted)
     add_custom_target(runTests
             COMMENT "Running lua tests"
             DEPENDS busted::busted lua_test_scripts)
 
 
     add_custom_command(TARGET runTests
-            COMMENT "Running tests inside "
+#            COMMENT "Running tests inside "
             COMMAND busted::busted tests
             ARGS tests/*.lua --helper=share/myserver/set_paths -v
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
