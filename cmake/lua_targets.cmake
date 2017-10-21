@@ -17,7 +17,7 @@ add_custom_target(lua_scripts
 add_dependencies(lua_scripts lua::sockets)
 
 set(main.lua share/myserver/main.lua)
-configure_file(startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
+configure_file(${PROJECT_SOURCE_DIR}/startserver.sh.in ${CMAKE_BINARY_DIR}/bin/startserver.sh)
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
         DESTINATION bin
         PERMISSIONS
