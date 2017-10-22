@@ -18,4 +18,5 @@ package.path = 'share/myserver/?.lua;' ..
         'share/lua/' .. version .. '/?/init.lua;' ..
         package.path
 package.cpath = 'lib/lua/' .. version .. '/?.so;'..
+        'lib/lua/' .. version .. '/?.dll;'..
         package.cpath
