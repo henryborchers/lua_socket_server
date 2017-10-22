@@ -48,26 +48,22 @@ function Server:login()
 end
 
 local function format_return_message(text)
-    local head = "+"..string.rep("=", 79)
+    local head = "+" .. string.rep("=", 79)
     local side = "| "
-    local tail = "+"..string.rep("=", 79)
+    local tail = "+" .. string.rep("=", 79)
     local message = side .. string.gsub(text, "\n", "\n" .. side)
     return head .. "\n" .. message .. "\n" .. tail .. "\n\n"
 end
 
 
 function Client:run()
-    local connection = self['connection']
-
     while 1 do
-        local line, erro = connection:receive()
+        local line, erro = self.connection:receive()
         if line then
 
             local my_command = commands.get(line)
             my_command:exec()
-            --            connection:send("\n"..my_command.response .. "\n\n")
             if line == "quit" then
-                print("got a line")
                 break
             end
             if line == "shutdown" then
@@ -75,20 +71,37 @@ function Client:run()
                 self.abort = true
                 break
             end
---            if my_command.response ~= "" then self.send(my_command.response) end
-            if my_command.response ~= "" then connection:send(format_return_message(my_command.response)) end
-            --            if not err then connection:send(line .. "\n") end
+            if my_command.response ~= "" then
+
+                self:send_formated(my_command.response, format_return_message)
+            end
             self.abort = false
         elseif erro then
-            break
+            if erro == "timeout" then
+                print("noop")
+            else
+                print(erro)
+                break
+            end
         else
-            print("did nothing")
         end
     end
 end
 
+function Client:send(data)
+
+    self.connection:send(format_return_message(data))
+end
+
+function Client:send_formated(data, formater)
+    local formater = formater or function(input) return data end
+    local formated_data =formater(data)
+    print("Formated data is "..formated_data)
+    self.connection:send(formated_data)
+end
+
 function Client:logout()
-    self['connection']:close()
+    self.connection:close()
 end
 
 function Client:new(t)
@@ -108,7 +121,8 @@ local function run_server()
     while 1 do
         local client = my_server:login()
         print("logged in")
-        client.connection:send("Client connected\n")
+        client:send_formated("Client connected\n")
+--        client.connection:send()
         client:run()
         client:logout()
         print("client closed")
