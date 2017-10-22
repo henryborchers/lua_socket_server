@@ -35,7 +35,7 @@ if (Lua_UseExternalLuaRocks)
             COMMENT "Adding Busted to ${UTILS_BUILT}/"
     )
     add_dependencies(luaBusted lua::luarocks lua::sockets)
-    if (Win32)
+    if (WIN32)
         set_target_properties(busted::busted PROPERTIES
                 IMPORTED_LOCATION ${UTILS_BUILT}/bin/busted.bat
                 )
