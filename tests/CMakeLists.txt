@@ -7,7 +7,7 @@ if (LuaServer_include-tests)
         message(STATUS "Located Lua test file: ${lua_test_file}")
         add_custom_command(
                 OUTPUT ${lua_test_file}
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/${lua_test_file} ${CMAKE_BINARY_DIR}/${lua_test_file}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/${lua_test_file} ${CMAKE_BINARY_DIR}/server/${lua_test_file}
                 COMMENT "UPDATING ${lua_test_file}"
         )
 
@@ -29,7 +29,7 @@ if (LuaServer_include-tests)
             #            COMMENT "Running tests inside "
             COMMAND busted::busted tests
             ARGS tests/*.lua --helper=share/myserver/set_paths -v
-            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/server
             )
     add_dependencies(runTests luaBusted lua::sockets)
 
