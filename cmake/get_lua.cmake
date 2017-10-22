@@ -12,10 +12,15 @@ if (PYTHONINTERP_FOUND)
             ARGS -m hererocks ${CMAKE_BINARY_DIR}/lua --lua 5.3 --patch --luarocks 2.4.3
             COMMENT "Adding lua and luarocks"
     )
-
-    set_target_properties(lua::luarocks PROPERTIES
+    if(WIN32)
+        set_target_properties(lua::luarocks PROPERTIES
+                IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lua/bin/luarocks.bat
+                )
+    else()
+        set_target_properties(lua::luarocks PROPERTIES
             IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lua/bin/luarocks
             )
+    endif()
     set_target_properties(lua::lib PROPERTIES
             IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lua/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua53${CMAKE_STATIC_LIBRARY_SUFFIX}
             )
