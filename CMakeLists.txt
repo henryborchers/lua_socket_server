@@ -8,8 +8,9 @@ if (LuaServer_include-tests)
     enable_testing()
 endif ()
 
-include(${PROJECT_SOURCE_DIR}/cmake/ExternalLuaUnix.cmake)
-include(${PROJECT_SOURCE_DIR}/cmake/LuaRocks.cmake)
+#include(${PROJECT_SOURCE_DIR}/cmake/ExternalLuaUnix.cmake)
+#include(${PROJECT_SOURCE_DIR}/cmake/LuaRocks.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/get_lua.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/get_lua_deps.cmake)
 include(${PROJECT_SOURCE_DIR}/cmake/lua_targets.cmake)
 
