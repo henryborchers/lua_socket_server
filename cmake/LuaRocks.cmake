@@ -1,8 +1,7 @@
 include(ExternalProject)
 add_executable(lua::luarocks IMPORTED)
-get_target_property(lua_root Lua::lib FOLDER)
+get_target_property(lua_root lua::lib FOLDER)
 if (Lua_UseExternalLuaRocks)
-
     if (UNIX)
         set(LUA_CONFIG_ARGS <SOURCE_DIR>/configure --prefix=<INSTALL_DIR> --with-lua=${lua_root})
         set(LUA_BUILD_ARGS make build)
