@@ -1,18 +1,20 @@
 add_executable(busted::busted IMPORTED)
 
 if (Lua_UseExternalLuaRocks)
+    set(SERVER_BUILD_SERVER ${CMAKE_BINARY_DIR}/server/)
+    set(UTILS_BUILT ${CMAKE_BINARY_DIR}/utils/)
     add_custom_target(lualuasockets
             DEPENDS lua::luarocks
-            DEPENDS ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
+            DEPENDS ${SERVER_BUILD_SERVER}/share/lua/${LUA_VERSION_STRING}/socket.lua
             COMMENT "Adding Luasocket"
             )
 
 
     add_custom_command(
-            OUTPUT ${CMAKE_BINARY_DIR}/share/lua/${LUA_VERSION_STRING}/socket.lua
+            OUTPUT ${SERVER_BUILD_SERVER}/share/lua/${LUA_VERSION_STRING}/socket.lua
             COMMAND lua::luarocks
-            ARGS install --tree ${CMAKE_BINARY_DIR}/ luasocket CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
-            COMMENT "Adding luasocket to ${CMAKE_BINARY_DIR}/"
+            ARGS install --tree ${SERVER_BUILD_SERVER}/ luasocket CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
+            COMMENT "Adding luasocket to ${SERVER_BUILD_SERVER}/"
     )
 
 
@@ -21,25 +23,25 @@ if (Lua_UseExternalLuaRocks)
     add_dependencies(lua::sockets lualuasockets)
     add_custom_target(luaBusted
             DEPENDS lua::luarocks
-            DEPENDS ${CMAKE_BINARY_DIR}/bin/busted
+            DEPENDS ${UTILS_BUILT}/bin/busted
             COMMENT "Adding Luasocks"
             )
 
 
     add_custom_command(
-            OUTPUT ${CMAKE_BINARY_DIR}/bin/busted
+            OUTPUT ${UTILS_BUILT}/bin/busted
             COMMAND lua::luarocks
-            ARGS install --tree ${CMAKE_BINARY_DIR}/ busted CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
-            COMMENT "Adding Busted to ${CMAKE_BINARY_DIR}/"
+            ARGS install --tree ${UTILS_BUILT}/ busted CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
+            COMMENT "Adding Busted to ${UTILS_BUILT}/"
     )
     add_dependencies(luaBusted lua::luarocks lua::sockets)
     if (Win32)
         set_target_properties(busted::busted PROPERTIES
-                IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/busted.bat
+                IMPORTED_LOCATION ${UTILS_BUILT}/bin/busted.bat
                 )
     else ()
         set_target_properties(busted::busted PROPERTIES
-                IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/bin/busted
+                IMPORTED_LOCATION ${UTILS_BUILT}/bin/busted
                 )
     endif ()
 
@@ -51,6 +53,6 @@ else ()
             )
 endif ()
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/ DESTINATION lib)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/bin/ DESTINATION bin)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/share/ DESTINATION share)
+install(DIRECTORY ${SERVER_BUILD_SERVER}/lib/ DESTINATION lib)
+install(DIRECTORY ${SERVER_BUILD_SERVER}/bin/ DESTINATION bin)
+install(DIRECTORY ${SERVER_BUILD_SERVER}/share/ DESTINATION share)
