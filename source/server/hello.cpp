@@ -8,13 +8,14 @@ extern "C" {
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
+#include "version.h"
 
 }
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    cout << "Hello World\n";
+    cout << "Version " << VISSERVER_VERSION << endl;
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
     int ret;
