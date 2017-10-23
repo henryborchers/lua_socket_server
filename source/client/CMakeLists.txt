@@ -6,6 +6,10 @@ if (python_client)
                 COMMAND ${PYTHON_EXECUTABLE} setup.py build -b ${CMAKE_BINARY_DIR}/client/
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 COMMENT "Building visclient")
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runclient.sh.in ${CMAKE_BINARY_DIR}/client/runclient.sh)
+        if (WIN32)
+            configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runclient.bat.in ${CMAKE_BINARY_DIR}/client/runclient.bat)
+        else ()
+            configure_file(${CMAKE_CURRENT_SOURCE_DIR}/runclient.sh.in ${CMAKE_BINARY_DIR}/client/runclient.sh)
+        endif ()
     endif ()
 endif ()
