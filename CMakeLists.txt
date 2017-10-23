@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(visserver)
+project(visserver VERSION 0.0.1)
 find_package(PythonInterp 3)
 option(Lua_UseExternalLuaRocks "download and build an copy of Lua Rocks" ON)
 option(LuaServer_include-tests "Include tests" ON)
