@@ -1,0 +1,8 @@
+//
+// Created by henry on 10/22/2017.
+//
+
+#ifndef VISSERVER_VERSION_H
+#define VISSERVER_VERSION_H
+#define VISSERVER_VERSION "@visserver_VERSION@"
+#endif //VISSERVER_VERSION_H

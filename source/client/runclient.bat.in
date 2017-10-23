@@ -1,0 +1,5 @@
+@echo off
+setlocal
+set PYTHONPATH=lib
+@PYTHON_EXECUTABLE@ -m visclient
+endlocal
