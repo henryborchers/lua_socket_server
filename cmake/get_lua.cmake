@@ -23,6 +23,7 @@ if (PYTHONINTERP_FOUND)
     endif()
     set_target_properties(lua::lib PROPERTIES
             IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lua/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua53${CMAKE_STATIC_LIBRARY_SUFFIX}
+            INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_BINARY_DIR}/lua/include
             )
     add_dependencies(lua::luarocks LuaRocks_hererocks)
     set(LUA_VERSION_STRING "5.3")
