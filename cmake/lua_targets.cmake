@@ -10,11 +10,13 @@ foreach (lua_project_script ${PROJECT_LUA_SCRIPTS})
             COMMENT "Adding/updating ${lua_project_script}."
     )
 endforeach ()
+
 add_custom_target(lua_scripts
         ALL
         COMMENT "Adding/updating Lua Scripts "
         DEPENDS ${PROJECT_LUA_SCRIPTS}
         )
+
 add_dependencies(lua_scripts lua::sockets)
 
 install(FILES ${CMAKE_BINARY_DIR}/bin/startserver.sh
