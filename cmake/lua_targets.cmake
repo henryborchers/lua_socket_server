@@ -4,17 +4,17 @@ file(GLOB PROJECT_LUA_SCRIPTS
         ${CMAKE_SOURCE_DIR}/source/server/*.lua)
 foreach (lua_project_script ${PROJECT_LUA_SCRIPTS})
     message(STATUS "Located lua script: ${lua_project_script}")
-    add_custom_command(
-            OUTPUT ${lua_project_script}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/source/server/${lua_project_script} ${SERVER_BUILD_SERVER}/share/myserver/${lua_project_script}
-            COMMENT "Adding/updating ${lua_project_script}."
-    )
+#    add_custom_command(
+#            OUTPUT ${lua_project_script}
+#            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_SOURCE_DIR}/source/server/${lua_project_script} ${SERVER_BUILD_SERVER}/share/myserver/${lua_project_script}
+#            COMMENT "Adding/updating ${lua_project_script}."
+#    )
 endforeach ()
 
 add_custom_target(lua_scripts
         ALL
         COMMENT "Adding/updating Lua Scripts "
-        DEPENDS ${PROJECT_LUA_SCRIPTS}
+#        DEPENDS ${PROJECT_LUA_SCRIPTS}
         )
 
 add_dependencies(lua_scripts lua::sockets)
