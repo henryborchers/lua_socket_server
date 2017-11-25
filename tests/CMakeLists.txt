@@ -34,7 +34,9 @@ if (LuaServer_include-tests)
                 COMMAND busted::busted ${CMAKE_CURRENT_SOURCE_DIR}/${_lua_test}
                 --directory=${CMAKE_BINARY_DIR}/server/
                 --config-file=${CMAKE_SOURCE_DIR}/tests/.busted
-                --helper=${CMAKE_BINARY_DIR}/server/share/myserver/set_paths.lua
+                --lpath=${CMAKE_SOURCE_DIR}/source/server/?.lua;${CMAKE_BINARY_DIR}/server/share/lua/5.3/?.lua;${CMAKE_BINARY_DIR}/server/share/lua/5.3/?/init.lua
+                --cpath=${CMAKE_BINARY_DIR}/server/lib/lua/5.3/myserver/?${CMAKE_SHARED_MODULE_SUFFIX}
+                #                --helper=${CMAKE_BINARY_DIR}/server/share/myserver/set_paths.lua
                 )
     endforeach()
 endif ()
