@@ -16,7 +16,6 @@ package.path = 'share/myserver/?.lua;' ..
         'share/lua/' .. version .. '/?.lua;' ..
         'share/lua/' .. version .. '/?/init.lua;' ..
         package.path
-package.cpath =  'lib/lua/' .. version .. '/?.so;'..
-        'lib/lua/' .. version .. '/myserver/?.so;'..
-        'lib/lua/' .. version .. '/?.dll;'..
+package.cpath =  'lib/lua/' .. version .. '/?@CMAKE_SHARED_MODULE_SUFFIX@;'..
+        'lib/lua/' .. version .. '/myserver/?@CMAKE_SHARED_MODULE_SUFFIX@;'..
         package.cpath
