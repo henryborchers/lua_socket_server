@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-PYTHONPATH=lib @PYTHON_EXECUTABLE@ -m visclient
+@VENV_PYTHON@ -m visclient
