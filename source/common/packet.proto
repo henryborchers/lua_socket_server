@@ -1,0 +1,11 @@
+syntax = "proto3";
+message packet {
+    string command = 1;
+    map<string, Arg> args = 2;
+}
+message Arg {
+    oneof myArg {
+        bool bvalue = 1;
+        string svalue = 2;
+    }
+}
