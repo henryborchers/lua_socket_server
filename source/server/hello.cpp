@@ -12,7 +12,9 @@ extern "C" {
 
 }
 
-using namespace std;
+using std::cerr;
+using std::cout;
+using std::endl;
 
 int main(int argc, char *argv[]) {
     cout << "Version " << VISSERVER_VERSION << endl;
