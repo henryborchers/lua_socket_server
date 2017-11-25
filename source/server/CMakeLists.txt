@@ -7,9 +7,11 @@ set_target_properties(startserver PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/server/bin)
 install(TARGETS startserver DESTINATION bin)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in ${CMAKE_BINARY_DIR}/server/include/version.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/set_paths.lua.in ${CMAKE_BINARY_DIR}/server/share/myserver/set_paths.lua)
 target_include_directories(startserver PUBLIC ${CMAKE_BINARY_DIR}/server/include)
 target_include_directories(startserver PRIVATE ${CMAKE_BINARY_DIR}/lua/include)
 target_link_libraries(startserver PRIVATE lua::lib)
 add_dependencies(startserver lua_scripts)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/source/ DESTINATION share/myserver)
 install(FILES ${CMAKE_BINARY_DIR}/share/myserver/set_paths.lua DESTINATION share/myserver)
+
