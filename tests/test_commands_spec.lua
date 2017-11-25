@@ -8,8 +8,6 @@
 --package.path = "lua_modules/share.lua.5.3"
 require("busted.runner")()
 
-
-
 insulate("When importing the commands module", function()
     local commands = require("commands")
 
