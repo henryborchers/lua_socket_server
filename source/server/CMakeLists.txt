@@ -1,10 +1,22 @@
 if (NOT LUA_FOUND)
     message(SEND_ERROR "Lua not found.")
 endif ()
+
 add_subdirectory(packets)
 add_executable(startserver hello.cpp)
+
+# TODO: move all the lua script logic from cmake/lua_targets.cmake into here
+
+# Find all the lua scripts
+file(GLOB PROJECT_LUA_SCRIPTS
+        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_SOURCE_DIR}/source/server/*.lua)
+list(APPEND PROJECT_LUA_SCRIPTS ${CMAKE_BINARY_DIR}/server/share/myserver/set_paths.lua)
+
 set_target_properties(startserver PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/server/bin)
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/server/bin"
+        RESOURCE "${PROJECT_LUA_SCRIPTS}"
+        )
 install(TARGETS startserver DESTINATION bin)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.h.in ${CMAKE_BINARY_DIR}/server/include/version.h)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/set_paths.lua.in ${CMAKE_BINARY_DIR}/server/share/myserver/set_paths.lua)
