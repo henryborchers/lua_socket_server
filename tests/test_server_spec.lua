@@ -7,6 +7,7 @@
 --
 require("busted.runner")()
 insulate("Import server", function()
+    _G.myglobal = true
     local server = require("server")
     it("has features", function()
         local func = server.run_server
