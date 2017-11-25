@@ -6,15 +6,17 @@ if (Lua_UseExternalLuaRocks)
     add_custom_target(lualuasockets
             DEPENDS lua::luarocks
             DEPENDS ${SERVER_BUILD_SERVER}/share/lua/${LUA_VERSION_STRING}/socket.lua
+#            DEPENDS ${SERVER_BUILD_SERVER}/lib/luarocks/rocks/luasocket/3.0rc1-2/luasocket-3.0rc1-2.rockspec
             COMMENT "Adding Luasocket"
             )
 
 
     add_custom_command(
+#            OUTPUT ${SERVER_BUILD_SERVER}/lib/luarocks/rocks/luasocket/3.0rc1-2/luasocket-3.0rc1-2.rockspec
             OUTPUT ${SERVER_BUILD_SERVER}/share/lua/${LUA_VERSION_STRING}/socket.lua
             COMMAND lua::luarocks
-            ARGS install --tree ${SERVER_BUILD_SERVER}/ luasocket CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
-            COMMENT "Adding luasocket to ${SERVER_BUILD_SERVER}/"
+            ARGS install --tree ${SERVER_BUILD_SERVER}/ luasocket 3.0rc1 # CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
+            COMMENT "Adding luasocket to ${SERVER_BUILD_SERVER}"
     )
 
 
@@ -30,8 +32,7 @@ if (Lua_UseExternalLuaRocks)
 
     add_custom_command(
             OUTPUT ${UTILS_BUILT}/bin/busted
-            COMMAND lua::luarocks
-            ARGS install --tree ${UTILS_BUILT}/ busted CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
+            COMMAND lua::luarocks install --tree ${UTILS_BUILT}/ busted # CC=${CMAKE_C_COMPILER} LD=${CMAKE_C_COMPILER}
             COMMENT "Adding Busted to ${UTILS_BUILT}/"
     )
     add_dependencies(luaBusted lua::luarocks lua::sockets)
