@@ -6,7 +6,6 @@
 -- To change this template use File | Settings | File Templates.
 --
 local version = _VERSION:match("%d+%.%d+")
-
 package.path = 'share/myserver/?.lua;' ..
         'share/lua/' .. version .. '/?.lua;' ..
         'share/lua/' .. version .. '/?/init.lua;' ..
@@ -17,6 +16,7 @@ package.path = 'share/myserver/?.lua;' ..
         'share/lua/' .. version .. '/?.lua;' ..
         'share/lua/' .. version .. '/?/init.lua;' ..
         package.path
-package.cpath = 'lib/lua/' .. version .. '/?.so;'..
+package.cpath =  'lib/lua/' .. version .. '/?.so;'..
+        'lib/lua/' .. version .. '/myserver/?.so;'..
         'lib/lua/' .. version .. '/?.dll;'..
         package.cpath
